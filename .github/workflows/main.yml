@@ -27,16 +27,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set flag for non approval in dev
-        if: endsWith(github.ref, '/dev')
-        run: |
-          echo "::set-env name=APPROVAL::true"
-
-      - name: Set flag for approval in prod
-        if: endsWith(github.ref, '/prod')
-        run: |
-          echo "::set-env name=APPROVAL::true"
-
       # Runs a single command using the runners shell
-      - name: Show APPROVAL
-        run: echo "$APPROVAL"
+      - name: Show date
+        run: date
