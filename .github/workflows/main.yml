@@ -43,7 +43,7 @@ jobs:
 
   prod:
     runs-on: ubuntu-latest
-    meeds: dev 
+    needs: dev 
     env:
       TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
       GCP_CREDENTIAL: ${{ secrets.GCP_CREDENTIAL }}
