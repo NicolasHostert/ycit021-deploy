@@ -7,15 +7,12 @@ on:
   push:
     branches:
       - main
-# Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Used to run the build
+# Image tag. The image is discarded
 env:
   TEST_TAG: moonwalkers/terraform:runnow
 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   dev:
     runs-on: ubuntu-latest
@@ -31,19 +28,43 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      -
-        name: Build and export to Docker
-        # Does a quick build
+      - name: Build and export to Docker
         uses: docker/build-push-action@v2
         with:
           load: true
           tags: ${{ env.TEST_TAG }}
-          # Uses secrets stored in the project. The account is Nicolas' one. Please be mindful of the usage
           secrets: |
             "TERRAFORM_TOKEN=${{ secrets.TERRAFORM_TOKEN }}"
             "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL }}"
       -
-        name: Test the image
-        # Tests the built image
+        name: Run the image
+        run: |
+          docker run --rm ${{ env.TEST_TAG }}
+
+  prod:
+    runs-on: ubuntu-latest
+    meeds: dev 
+    env:
+      TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
+      GCP_CREDENTIAL: ${{ secrets.GCP_CREDENTIAL }}
+    environment:
+      name: dev
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v2
+        with:
+          load: true
+          tags: ${{ env.TEST_TAG }}
+          secrets: |
+            "TERRAFORM_TOKEN=${{ secrets.TERRAFORM_TOKEN }}"
+            "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL }}"
+
+      - name: Run the image
         run: |
           docker run --rm ${{ env.TEST_TAG }}
