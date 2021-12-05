@@ -34,4 +34,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Show APPROVAL
-        run: echo $APPROVAL
+        run: echo "$APPROVAL"
