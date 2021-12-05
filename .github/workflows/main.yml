@@ -19,6 +19,9 @@ env:
 jobs:
   dev:
     runs-on: ubuntu-latest
+    env:
+      TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
+      GCP_CREDENTIAL: ${{ secrets.GCP_CREDENTIAL }}
     environment:
       name: dev
     steps:
