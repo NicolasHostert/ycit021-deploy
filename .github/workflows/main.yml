@@ -10,6 +10,11 @@ on:
 # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Used to run the build
+env:
+  TEST_TAG: moonwalkers/terraform:runnow
+
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   dev:
@@ -23,9 +28,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Run Docker image
+      -
+        name: Build and export to Docker
+        # Does a quick build
+        uses: docker/build-push-action@v2
+        with:
+          load: true
+          tags: ${{ env.TEST_TAG }}
+          # Uses secrets stored in the project. The account is Nicolas' one. Please be mindful of the usage
+          secrets: |
+            "TERRAFORM_TOKEN=${{ secrets.TERRAFORM_TOKEN }}"
+            "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL }}"
+      -
+        name: Test the image
+        # Tests the built image
         run: |
-          docker run --rm moonwalkers/terraform:202111220201
-        env:
-          TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
-          GCP_CREDENTIAL: ${{ secrets.GCP_CREDENTIAL }}
+          docker run --rm ${{ env.TEST_TAG }}
