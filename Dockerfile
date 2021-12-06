@@ -1,5 +1,5 @@
-FROM moonwalkers/terraform:202111220201
-LABEL org.opencontainers.image.authors="secretemailt@moonwalkers.ca"
+FROM moonwalkers/terraform:202112061807
+LABEL org.opencontainers.image.authors="nicolas@secretemail.com"
 
 WORKDIR /app
 
