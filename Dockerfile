@@ -6,8 +6,8 @@ WORKDIR /app
 # Mount secrets .
 RUN --mount=type=secret,id=GCP_CREDENTIAL,dst=/app/gcp.json cat gcp.json > /app/service-account.json
 RUN --mount=type=secret,id=TERRAFORM_TOKEN,dst=/app/terraformrc cat /app/terraformrc > /app/.terraformrc
-RUN --mount=type=secret,id=BUCKET_PROD,dst=/app/backend.txt cat /app/backend.txt > /app/backend.tf
-RUN --mount=type=secret,id=TFVARS_PROD,dst=/app/tfvars cat /app/tfvars > /app/terraform.tfvars
+RUN --mount=type=secret,id=BUCKET,dst=/app/backend cat /app/backend > /app/backend.tf
+RUN --mount=type=secret,id=TFVARS,dst=/app/tfvars cat /app/tfvars > /app/terraform.tfvars
 
 # Set environment variables for GCP and Terraform credentials
 ENV GOOGLE_APPLICATION_CREDENTIALS="/app/service-account.json"
