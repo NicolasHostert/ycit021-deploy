@@ -36,7 +36,7 @@ jobs:
           secrets: |
             "TERRAFORM_TOKEN=${{ secrets.TERRAFORM_TOKEN }}"
             "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL }}"
-            "BUCKET=${{ secrets.BUCKET_PROD }}"
+            "BUCKET=${{ secrets.BUCKET_DEV }}"
             "TFVARS=${{ secrets.TFVARS_DEV }}"
       -
         name: Run the image
