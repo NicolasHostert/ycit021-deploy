@@ -16,9 +16,9 @@ env:
 jobs:
   dev:
     runs-on: ubuntu-latest
-    env:
-      TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
-      GCP_CREDENTIAL: ${{ secrets.GCP_CREDENTIAL }}
+#    env:
+#      TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
+#      GCP_CREDENTIAL: ${{ secrets.GCP_CREDENTIAL }}
     environment:
       name: dev
     steps:
@@ -44,9 +44,6 @@ jobs:
   prod:
     runs-on: ubuntu-latest
     needs: dev 
-    env:
-      TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
-      GCP_CREDENTIAL: ${{ secrets.GCP_CREDENTIAL_PROD }}
     environment:
       name: prod
     steps:
