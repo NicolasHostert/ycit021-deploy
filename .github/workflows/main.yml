@@ -80,11 +80,10 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
 
-      - name: test get-pods
-        run: kubectl get pods -A
-
-      - name: test Helm
-        run: helm version
+      - name: Checkout tools repo
+        uses: actions/checkout@v2
+        with:
+          repository: NicolasHostert/ycit021-myapp.git
 
       - name: Deploy
         run: |
