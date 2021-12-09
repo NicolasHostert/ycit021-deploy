@@ -76,19 +76,14 @@ jobs:
       - name: Use gcloud CLI
         run: gcloud info
 
-#      - uses: google-github-actions/setup-gcloud@master
-#        with:
-#          version: '270.0.0'
-#          service_account_email: ${{ secrets.GCP_SERVICEACCOUNTEMAIL_DEV }}
-#          service_account_key: ${{ secrets.GKE_KEY_DEV }}
-#
-#        # Get the GKE credentials so we can deploy to the cluster
-#      - name: Get cluster credentials
-#        uses: google-github-actions/get-gke-credentials@v0.4.0
-#        with:
-#          cluster_name: ${{ env.GKE_CLUSTER }}
-#          location: ${{ env.GKE_ZONE }}
-#          credentials: ${{ secrets.GKE_KEY_DEV }}
+      - name: Get GKE credentials
+        uses: google-github-actions/get-gke-credentials@v0.3.0
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+
+      - name: test get-pods
+        run: kubectl get pods
 #
 #
 #          # Configure docker to use the gcloud command-line tool as a credential helper
