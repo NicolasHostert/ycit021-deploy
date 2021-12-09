@@ -58,7 +58,7 @@ jobs:
           docker run --rm ${{ env.TEST_TAG }}
 
   dev-application:
-    needs: pre-flight 
+    needs: dev-infra 
     runs-on: ubuntu-latest
     environment:
       name: dev
