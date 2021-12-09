@@ -85,29 +85,14 @@ jobs:
 
       - name: test Helm
         run: helm version
-#
-#
-#          # Configure docker to use the gcloud command-line tool as a credential helper
-#      - name: Configure auth
-#        run: 
-#          gcloud auth configure-docker
-#
-#      # Install helm
-#      - name: Install Helm
-#        run: |
-#          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-#
-#
-#      - name: Deploy
-#        run: |
-#          gcloud container clusters get-credentials $GKE_CLUSTER \
-#            --zone $GKE_ZONE \
-#            --project $GKE_PROJECT
-#          helm upgrade $GKE_PROJECT $GKE_PROJECT-cluster/ \
-#            --set randocats.image.tag=$GITHUB_SHA \
-#            --wait
-#          kubectl rollout status deployment/$DEPLOYMENT_NAME
-#          kubectl get services -o wide
+
+      - name: Deploy
+        run: |
+          helm upgrade $GKE_PROJECT $GKE_PROJECT-cluster/ \
+            --set randocats.image.tag=$GITHUB_SHA \
+            --wait
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl get services -o wide
 
 
 
