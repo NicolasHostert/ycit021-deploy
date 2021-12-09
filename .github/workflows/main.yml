@@ -80,10 +80,10 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
 
-      - name: Checkout tools repo
+      - name: Checkout myapp repo
         uses: actions/checkout@v2
         with:
-          repository: NicolasHostert/ycit021-myapp.git
+          repository: NicolasHostert/ycit021-myapp
 
       - name: Deploy
         run: |
