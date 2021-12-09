@@ -88,6 +88,7 @@ jobs:
 
       - name: Deploy
         run: |
+          ls -lhrt
           helm install myapp . --values values-cloud.yaml
           kubectl get services -o wide
           export SERVICE_IP=$(kubectl get svc --namespace default ycit021-myapp --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
