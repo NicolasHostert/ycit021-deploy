@@ -74,12 +74,6 @@ jobs:
       - name: Use gcloud CLI
         run: gcloud info
 
-      - name: Get GKE credentials
-        uses: google-github-actions/get-gke-credentials@v0.3.0
-        with:
-          cluster_name: ${{ env.GKE_CLUSTER }}
-          location: ${{ env.GKE_ZONE }}
-
       - name: Checkout myapp repo
         uses: actions/checkout@v2
         with:
@@ -87,7 +81,7 @@ jobs:
 
       - name: Deploy
         run: |
-          ls -lhrt
+          gcloud container clusters get-credentials $GKE_CLUSTER --region $GKE_ZONE
           helm install myapp . --values values-cloud.yaml
           kubectl get services -o wide
           export SERVICE_IP=$(kubectl get svc --namespace default ycit021-myapp --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
