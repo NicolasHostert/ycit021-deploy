@@ -1,12 +1,32 @@
-# YCIT021 - Deployment repo
+# YCIT021 - Deployment repository
 
 ## Objective
 
-This repo is used to deploy the infrastructure and the application, all in one go
+This repository is used to deploy the infrastructure and the application, all in one go
 
-## Branches
+## Workflow: Deploy all the things
 
-Depending on which branch you are doing an update, it will push to either DEV or PROD, with its own sets of parameters.
+### Pre-flight
+In that step, we are checking that the Dockerfile is properly linted.
 
-The Github Actions will be maintained in Main, and updating updatetorun.txt with the current date will trigger the build.
+### Deployment steps
+
+There are two environments:
+* dev
+* prod
+
+Each of these environment gets 2 steps
+* {ENV}-infra:
+    * It will deploy the infrastructure
+    * It is based on the Moonwalkers terraform module
+    * It takes the proper credentials and configs from the project secrets
+
+* {ENV}-application
+    * The application that will be deployed can be found [there](https://github.com/NicolasHostert/nuxt-realworld).
+    * The image has been build and is deployed with a Helm chart that can be found [there](https://github.com/NicolasHostert/ycit021-myapp).
+
+
+Features coming next:
+* State of the application, to allow for a helm upgrade
+* Proper indication on how to reach the application once deployed
 
