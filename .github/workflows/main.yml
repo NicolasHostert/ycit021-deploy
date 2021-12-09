@@ -129,7 +129,7 @@ jobs:
       - name: Deploy
         run: |
           gcloud container clusters get-credentials $GKE_CLUSTER --region $GKE_ZONE
-          helm install myapp . --values values-cloud.yaml
+          helm upgrade --install myapp . --values values-cloud.yaml
           sleep 60
           kubectl get services -o wide
           export SERVICE_IP=$(kubectl get svc --namespace default ycit021-myapp --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
