@@ -25,8 +25,12 @@ Each of these environment gets 2 steps
     * The application that will be deployed can be found [there](https://github.com/NicolasHostert/nuxt-realworld).
     * The image has been build and is deployed with a Helm chart that can be found [there](https://github.com/NicolasHostert/ycit021-myapp).
 
+The dev environment will deploy immediatly when the workflow is run. The production one will wait for an approval.
 
 Features coming next:
 * State of the application, to allow for a helm upgrade
 * Proper indication on how to reach the application once deployed
 
+## Value Stream Mapping
+
+![ValueStreamMapping.jpg](ValueStreamMapping.jpg)

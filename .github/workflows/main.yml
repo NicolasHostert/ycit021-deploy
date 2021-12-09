@@ -3,9 +3,6 @@
 name: Deploy all the things
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 env:
