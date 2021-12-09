@@ -119,7 +119,7 @@ jobs:
       - name: Auth GCP 
         uses: google-github-actions/auth@v0.4.0
         with:
-          credentials_json: ${{ secrets.GCP_AUTH_DEV }}
+          credentials_json: ${{ secrets.GCP_AUTH_PROD }}
 
       - name: Checkout myapp repo
         uses: actions/checkout@v2
