@@ -11,7 +11,7 @@ on:
 # Image tag. The image is discarded
 env:
   TEST_TAG: moonwalkers/terraform:runnow
-  GKE_CLUSTER: gke-ycit021-project-dev
+  GKE_CLUSTER: gke-ycit021-devops-project
   GKE_ZONE: us-central1
   GKE_PROJECT: ${{ secrets.GKE_PROJECT_DEV }}
 
