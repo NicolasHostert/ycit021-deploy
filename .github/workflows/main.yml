@@ -63,7 +63,6 @@ jobs:
     environment:
       name: dev
     steps:
-      # Setup gcloud CLI
       - name: Auth GCP 
         uses: google-github-actions/auth@v0.4.0
         with:
@@ -83,6 +82,9 @@ jobs:
 
       - name: test get-pods
         run: kubectl get pods -A
+
+      - name: test Helm
+        run: helm version
 #
 #
 #          # Configure docker to use the gcloud command-line tool as a credential helper
