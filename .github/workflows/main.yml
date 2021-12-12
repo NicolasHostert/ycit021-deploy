@@ -15,7 +15,7 @@ jobs:
   pre-flight:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Deploy repo
         uses: actions/checkout@v2
         with:
           ref: main
@@ -26,6 +26,14 @@ jobs:
           target: Dockerfile
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Terraform repo
+        uses: actions/checkout@v2
+        with:
+          repository: devops-moonwalkers/gcp-infra
+
+      - name: Terraform Lint
+        uses: actionshub/terraform-lint@main
 
   dev-infra:
     runs-on: ubuntu-latest
