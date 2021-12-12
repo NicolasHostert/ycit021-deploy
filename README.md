@@ -24,6 +24,7 @@ Each of these environment gets 2 steps
 * {ENV}-application
     * The application that will be deployed can be found [there](https://github.com/NicolasHostert/nuxt-realworld).
     * The image has been build and is deployed with a Helm chart that can be found [there](https://github.com/NicolasHostert/ycit021-myapp).
+    * After deploying the application, it will curl the appliction URL to determine if we get a 200 http response code or not, and fail if it's not working.
 
 The dev environment will deploy immediatly when the workflow is run. The production one will wait for an approval.
 
