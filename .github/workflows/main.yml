@@ -93,7 +93,7 @@ jobs:
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v2
         with:
-          url: http://${{ env.SERVICE }}"
+          url: http://${{ env.SERVICE }}
 
   # Deployment of the prod part
   prod-infra:
