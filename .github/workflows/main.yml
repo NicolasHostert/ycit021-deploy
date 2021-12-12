@@ -88,12 +88,12 @@ jobs:
           export SERVICE_IP=$(kubectl get svc --namespace default ycit021-myapp --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
           echo Deployment completed successfully!
           echo To access the app: http://$SERVICE_IP:80
-          echo "::set-env name=SERVICE::$SERVICE_IP"
+          echo "SERVICE=$SERVICE_IP" >> $GITHUB_ENV
 
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v2
         with:
-          url: http://$SERVICE
+          url: http://${{ env.SERVICE }}"
 
   # Deployment of the prod part
   prod-infra:
