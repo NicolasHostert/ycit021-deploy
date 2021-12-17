@@ -32,7 +32,7 @@ jobs:
       - name: Checkout Terraform repo
         uses: actions/checkout@v2
         with:
-          repository: devops-moonwalkers/gcp-infra
+          repository: NicolasHostert/ycit021-terraform
       - name: Terraform Lint
         uses: actionshub/terraform-lint@main
 
