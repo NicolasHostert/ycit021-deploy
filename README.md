@@ -6,6 +6,11 @@ This repository is used to deploy the infrastructure and the application, all in
 
 ## Workflow: Deploy all the things
 
+### How to deploy
+To deploy the infrastructure, go to the [actions](https://github.com/NicolasHostert/ycit021-deploy/actions/workflows/main.yml), and click Run workflow.
+
+You will get the URL of the application URL in {ENV}-application in the Check the deployed service URL step. 
+
 ### Pre-flight
 In that step, we are checking that the Dockerfile is properly linted.
 
