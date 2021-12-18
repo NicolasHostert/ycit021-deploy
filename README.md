@@ -4,6 +4,17 @@
 
 This repository is used to deploy the infrastructure and the application, all in one go.
 
+## Repositories used by this project
+
+[Deployment](https://github.com/NicolasHostert/ycit021-deploy): This repository. It is used to deploy the infrastructure and the application.
+
+[Infrastructure](https://github.com/NicolasHostert/ycit021-terraform): It is based on the Moonwalkers terraform module, and contains the specifics for this project.
+
+[Application](https://github.com/NicolasHostert/ycit021-myapp): It contains the Helm chart on the application that will be deployed on the infrastructure.
+
+[Real World App](https://github.com/NicolasHostert/nuxt-realworld): This is the repository used to build the application used by the Helm chart.
+
+
 ## How to deploy the application in the DEV and PROD environments?
 To deploy the infrastructure, go to the [actions](https://github.com/NicolasHostert/ycit021-deploy/actions/workflows/main.yml), and click Run workflow.
 
@@ -24,7 +35,6 @@ In that step, we are checking that the Dockerfile and the Terraform code are pro
 ### dev-infra and prod-infra
 
 * It will deploy the infrastructure
-* It is based on the Moonwalkers terraform module
 * It takes the proper credentials and configs from the project secrets
 
 ### dev-application and prod-application
