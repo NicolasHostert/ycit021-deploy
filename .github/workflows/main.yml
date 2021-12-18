@@ -146,10 +146,11 @@ jobs:
           kubectl get services -o wide
           export SERVICE_IP=$(kubectl get svc --namespace default ycit021-myapp --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
           echo Deployment completed successfully!
-          echo To access the app: http://$SERVICE_IP:80
-          echo "SERVICE=$SERVICE_IP" >> $GITHUB_ENV
+          export URL=$(sed 's/ /\./g' <<< $(sed 's/\./ /g' <<<"$ipaddress" | awk '{ for (i=NF; i>1; i--) printf("%s ",$i); print $1".bc.googleusercontent.com"; }'))
+          echo To access the app: http://$URL:80
+          echo "URL=$URL" >> $GITHUB_ENV
 
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v2
         with:
-          url: http://${{ env.SERVICE }}
+          url: http://${{ env.URL }}
