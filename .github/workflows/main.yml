@@ -9,7 +9,6 @@ env:
   TEST_TAG: moonwalkers/terraform:runnow # Image tag. The image is discarded after the 
   GKE_CLUSTER: gke-ycit021-devops-project
   GKE_ZONE: us-central1
-#  GKE_PROJECT: ${{ secrets.GKE_PROJECT_DEV }}
 
 jobs:
   # Linting of all the blocks used to build the infra
@@ -36,7 +35,7 @@ jobs:
       - name: Terraform Lint
         uses: actionshub/terraform-lint@main
 
-  # Deployment of the dev part
+  # Deployment of the dev infrastructure
   dev-infra:
     runs-on: ubuntu-latest
     needs: pre-flight 
@@ -84,9 +83,7 @@ jobs:
           gcloud container clusters get-credentials $GKE_CLUSTER --region $GKE_ZONE
           helm upgrade --install myapp . --values values-cloud.yaml
           sleep 60
-          kubectl get services -o wide
           export SERVICE_IP=$(kubectl get svc --namespace default ycit021-myapp --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
-          echo Deployment completed successfully!
           export URL=$(sed 's/ /\./g' <<< $(sed 's/\./ /g' <<<"$SERVICE_IP" | awk '{ for (i=NF; i>1; i--) printf("%s ",$i); print $1".bc.googleusercontent.com"; }'))
           echo To access the app: http://$URL
           echo "URL=$URL" >> $GITHUB_ENV
@@ -96,7 +93,7 @@ jobs:
         with:
           url: http://${{ env.URL }}
 
-  # Deployment of the prod part
+  # Deployment of the prod infrastructure, after approval
   prod-infra:
     runs-on: ubuntu-latest
     needs: pre-flight 
@@ -144,9 +141,7 @@ jobs:
           gcloud container clusters get-credentials $GKE_CLUSTER --region $GKE_ZONE
           helm upgrade --install myapp . --values values-cloud.yaml
           sleep 60
-          kubectl get services -o wide
           export SERVICE_IP=$(kubectl get svc --namespace default ycit021-myapp --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
-          echo Deployment completed successfully!
           export URL=$(sed 's/ /\./g' <<< $(sed 's/\./ /g' <<<"$SERVICE_IP" | awk '{ for (i=NF; i>1; i--) printf("%s ",$i); print $1".bc.googleusercontent.com"; }'))
           echo To access the app: http://$URL
           echo "URL=$URL" >> $GITHUB_ENV

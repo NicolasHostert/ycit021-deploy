@@ -33,8 +33,59 @@ Each of these environment gets 2 steps
 
 The dev environment will deploy immediatly when the workflow is run. The production one will wait for an approval.
 
-Features coming next:
-* Proper indication on how to reach the application once deployed
+## Secrets used by the pipeline and their formatting
+
+DOCKERHUB_TOKEN
+
+    <VALUE>
+
+
+DOCKERHUB_USERNAME
+
+    <VALUE>
+
+TERRAFORM_TOKEN
+
+    credentials ""app.terraform.io"" {
+        ""token"" = "" <VALUE> ""
+    }
+
+GCP_CREDENTIAL_DEV and GCP_CREDENTIAL_PROD
+
+    {
+      ""type"": ""service_account"",
+      ""project_id"": "" <VALUE> "",
+      ""private_key_id"": "" <VALUE> "",
+      ""private_key"": "" <VALUE on one line with \n> "",
+      ""client_email"": "" <VALUE> "",
+      ""client_id"": "" <VALUE> "",
+      ""auth_uri"": ""https://accounts.google.com/o/oauth2/auth"",
+      ""token_uri"": ""https://oauth2.googleapis.com/token"",
+      ""auth_provider_x509_cert_url"": ""https://www.googleapis.com/oauth2/v1/certs"",
+      ""client_x509_cert_url"": "" <VALUE> ""
+    }
+
+
+GCP_AUTH_DEV and GCP_AUTH_PROD
+
+    -----BEGIN PRIVATE KEY-----
+    <VALUE>
+    -----END PRIVATE KEY-----
+
+BUCKET_DEV and BUCKET_PROD
+
+    terraform {
+      backend ""gcs"" {
+        bucket = "" <VALUE> ""
+        prefix = ""state""
+      }
+    }
+
+TFVARS_DEV and TFVARS_PROD
+
+    gcp_project_id = "" <VALUE> ""
+    gcp_region = "" <VALUE> ""
+
 
 ## Value Stream Mapping
 
