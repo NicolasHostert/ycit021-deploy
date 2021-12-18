@@ -9,7 +9,7 @@ env:
   TEST_TAG: moonwalkers/terraform:runnow # Image tag. The image is discarded after the 
   GKE_CLUSTER: gke-ycit021-devops-project
   GKE_ZONE: us-central1
-  GKE_PROJECT: ${{ secrets.GKE_PROJECT_DEV }}
+#  GKE_PROJECT: ${{ secrets.GKE_PROJECT_DEV }}
 
 jobs:
   # Linting of all the blocks used to build the infra
@@ -56,7 +56,7 @@ jobs:
           tags: ${{ env.TEST_TAG }}
           secrets: |
             "TERRAFORM_TOKEN=${{ secrets.TERRAFORM_TOKEN }}"
-            "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL }}"
+            "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL_DEV }}"
             "BUCKET=${{ secrets.BUCKET_DEV }}"
             "TFVARS=${{ secrets.TFVARS_DEV }}"
       -
