@@ -2,36 +2,36 @@
 
 ## Objective
 
-This repository is used to deploy the infrastructure and the application, all in one go
+This repository is used to deploy the infrastructure and the application, all in one go.
 
-## Workflow: Deploy all the things
-
-### How to deploy
+## How to deploy the application in the DEV and PROD environments?
 To deploy the infrastructure, go to the [actions](https://github.com/NicolasHostert/ycit021-deploy/actions/workflows/main.yml), and click Run workflow.
 
-You will get the URL of the application URL in {ENV}-application in the Check the deployed service URL step. 
+It will deploy the DEV environment straight away.
 
+It will wait for an approval from the repository owner for the PROD environment.
+
+
+## How to access the applications?
+
+You will get the URL of the application in the application job, in the "Check the deployed service URL" step.
+
+
+## Workflow: Deploy all the things
 ### Pre-flight
-In that step, we are checking that the Dockerfile is properly linted.
+In that step, we are checking that the Dockerfile and the Terraform code are properly linted. If this fails, it will prevent the rest of the workflow to be executed.
 
-### Deployment steps
+### dev-infra and prod-infra
 
-There are two environments:
-* dev
-* prod
+* It will deploy the infrastructure
+* It is based on the Moonwalkers terraform module
+* It takes the proper credentials and configs from the project secrets
 
-Each of these environment gets 2 steps
-* {ENV}-infra:
-    * It will deploy the infrastructure
-    * It is based on the Moonwalkers terraform module
-    * It takes the proper credentials and configs from the project secrets
+### dev-application and prod-application
+* The application that will be deployed can be found [there](https://github.comNicolasHostert/nuxt-realworld).
+* The image has been build and is deployed with a Helm chart that can be found [there](https://github.com/NicolasHostert/ycit021-myapp).
+* After deploying the application, it will curl the appliction URL to determine if we get a 200 http response code or not, and fail if it's not working.
 
-* {ENV}-application
-    * The application that will be deployed can be found [there](https://github.com/NicolasHostert/nuxt-realworld).
-    * The image has been build and is deployed with a Helm chart that can be found [there](https://github.com/NicolasHostert/ycit021-myapp).
-    * After deploying the application, it will curl the appliction URL to determine if we get a 200 http response code or not, and fail if it's not working.
-
-The dev environment will deploy immediatly when the workflow is run. The production one will wait for an approval.
 
 ## Secrets used by the pipeline and their formatting
 
